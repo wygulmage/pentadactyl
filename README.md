@@ -51,3 +51,14 @@ nmap -ex <C-r> :rehash
 ```
 
 [1]: https://developer.mozilla.org/en-US/Add-ons/Setting_up_extension_development_environment#Firefox_extension_proxy_file
+
+
+### Firefox extension proxy file [from dead link above]
+Extension files are normally installed in the user profile. However, it is usually easier to place extension files in a temporary location, which also protects source files from accidental deletion. This section explains how to create a proxy file that points to an extension that is installed in a location other than the user profile.
+
+1. Get the extension ID from the extension's install.rdf file.
+2. Create a file in the "extensions" directory under your profile directory with the extension's ID as the file name (for example "your_profile_directory/extensions/{46D1B3C0-DB7A-4b1a-863A-6EE6F77ECB58}"). (How to find your profile directory) Alternatively, rather than using a GUID, create a unique ID using the format "name@yourdomain" (for example chromebug@mydomain.com) - then the proxy filename will be same as that ID, with no curly brackets {}.
+3. The contents of this file should be the path to the directory that contains your install.rdf file, for example /full/path/to/yourExtension/ on Mac and Linux, and C:\full\path\to\yourExtension\ on Windows. Remember to include the closing slash and remove any trailing whitespace.
+    * Note: If you already installed the extension via XPI, you should uninstall it first before creating the pointer file.
+    * Also note that the use of proxy files requires that the extension's chrome.manifest defines its chrome urls using traditional directories, rather than a JARed structure. See below.
+4. Place the file in the extensions folder of your profile and restart the application.
